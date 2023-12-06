@@ -20,18 +20,22 @@ private func shell(_ command: String) {
     print("\(output)\n")
 }
 
-let fm = FileManager.default
-let currentDir = fm.currentDirectoryPath
-do {
-    let dirs = try fm.contentsOfDirectory(atPath: currentDir)
+private func main() {
+    let fm = FileManager.default
+    let currentDir = fm.currentDirectoryPath
+    do {
+        let dirs = try fm.contentsOfDirectory(atPath: currentDir)
 
-    for d in dirs where fm.fileExists(atPath: "\(currentDir)/\(d)/Package.swift") {
-        shell("""
-            cd \(currentDir)/\(d) && \
-            swift build -c release && \
-            cp .build/release/\(d) ../bin/
-        """)
+        for d in dirs where fm.fileExists(atPath: "\(currentDir)/\(d)/Package.swift") {
+            shell("""
+                cd \(currentDir)/\(d) && \
+                swift build -c release && \
+                cp .build/release/\(d) ../bin/
+            """)
+        }
+    } catch {
+
     }
-} catch {
-
 }
+
+main()
