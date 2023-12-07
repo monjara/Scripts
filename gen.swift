@@ -9,7 +9,7 @@ struct ArgumentsParser {
         for a in args {
             switch a {
             case "--clear", "-c":
-                clearOnly = true
+                self.clearOnly = true
             default:
                 break
             }
