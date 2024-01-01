@@ -75,6 +75,14 @@ private func main(_ args: ArgumentsParser) {
                 withDestinationURL: URL(fileURLWithPath: "\(currentDir)/\(d)/.build/release/\(d)")
             )
         }
+
+        let shFiles = try fm.contentsOfDirectory(atPath: "\(currentDir)/sh")
+        for s in shFiles {
+            try fm.createSymbolicLink(
+                at: URL(fileURLWithPath: "\(currentDir)/bin/\(s)"),
+                withDestinationURL: URL(fileURLWithPath: "\(currentDir)/\(s)")
+            )
+        }
     } catch {
         print(error)
     }
